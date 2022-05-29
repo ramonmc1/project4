@@ -5,14 +5,29 @@ import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
-from config import p_key
-# from flask_sqlalchemy import SQLAlchemy
+# from config import p_key
+from flask_sqlalchemy import SQLAlchemy
 # import os
+# import psycopg2
 import ml_script
+
+
+#################################################
+# Flask Setup
+#################################################
+
+app = Flask(__name__)
+
 
 #################################################
 # Data Prep
 #################################################
+
+
+# DATABASE_URL = os.environ[f'postgresql://postgres:{p_key}@localhost:5432/housing2'] 
+
+# connection = psycopg2.connect(DATABASE_URL, sslmode='require')
+
 
 data_base = ml_script.data_info()
 
@@ -34,26 +49,17 @@ connection.execute('ALTER TABLE "line" ADD PRIMARY KEY ("index");')
 data5.to_sql('linreg', if_exists='replace', index=True, con=connection, method='multi')
 connection.execute('ALTER TABLE "linreg" ADD PRIMARY KEY ("index");')
 
-connection.close()
+# connection.close()
 
-
-#################################################
-# Flask Setup
-#################################################
-
-app = Flask(__name__)
 
 
 #################################################
 # Database Setup
 #################################################
-# DATABASE_URL = 'postgresql://postgres:{p_key}@localhost:5432/project4'
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(DATABASE_URL, '') or "sqlite:///db.sqlite"
-# Remove tracking modifications
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-# db = SQLAlchemy(app)
-# Pet = create_classes(db)
-engine = create_engine('DATABASE_URL', echo = False) 
+
+
+# engine = create_engine('DATABASE_URL', echo = False) 
+
 Base = automap_base()
 # reflect the tables
 Base.prepare(engine, reflect=True)
@@ -73,8 +79,7 @@ session = Session(engine)
 
 @app.route("/")
 def home():
-    engine = create_engine('DATABASE_URL', echo = False) 
-    # reflect an existing database into a new model
+  
     
     return render_template("index.html")
 
@@ -88,30 +93,30 @@ def linear():
      
     return render_template("index2.html")
 
-@app.route("/updatedata")
-def newdata():
+# @app.route("/updatedata")
+# def newdata():
    
-    data1, df_elbow = ml_script.cluster_info(data_base)
-    data3, data5 = ml_script.cluster_info(data_base)
+#     data1, df_elbow = ml_script.cluster_info(data_base)
+#     data3, data5 = ml_script.cluster_info(data_base)
 
-    engine = create_engine('DATABASE_URL', echo = False) 
-    connection = engine.connect()
+#     engine = create_engine('DATABASE_URL', echo = False) 
+#     connection = engine.connect()
     
-    data1.to_sql('clusterA',  if_exists='replace', index=True, con=connection, method='multi')
-    connection.execute('ALTER TABLE "clusterA" ADD PRIMARY KEY ("index");')
+#     data1.to_sql('clusterA',  if_exists='replace', index=True, con=connection, method='multi')
+#     connection.execute('ALTER TABLE "clusterA" ADD PRIMARY KEY ("index");')
 
-    df_elbow.to_sql('elbow',  if_exists='replace', index=True, con=connection, method='multi')
-    connection.execute('ALTER TABLE "elbow" ADD PRIMARY KEY ("index");')
+#     df_elbow.to_sql('elbow',  if_exists='replace', index=True, con=connection, method='multi')
+#     connection.execute('ALTER TABLE "elbow" ADD PRIMARY KEY ("index");')
     
-    data3.to_sql('line', if_exists='replace', index=True, con=connection, method='multi')
-    connection.execute('ALTER TABLE "line" ADD PRIMARY KEY ("index");')
+#     data3.to_sql('line', if_exists='replace', index=True, con=connection, method='multi')
+#     connection.execute('ALTER TABLE "line" ADD PRIMARY KEY ("index");')
     
-    data5.to_sql('linreg', if_exists='replace', index=True, con=connection, method='multi')
-    connection.execute('ALTER TABLE "linreg" ADD PRIMARY KEY ("index");')
+#     data5.to_sql('linreg', if_exists='replace', index=True, con=connection, method='multi')
+#     connection.execute('ALTER TABLE "linreg" ADD PRIMARY KEY ("index");')
     
-    connection.close()
+#     connection.close()
     
-    return home()
+#     return home()
 
 @app.route("/api/cluster")
 def cluster():
