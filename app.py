@@ -19,7 +19,7 @@ data_base = ml_script.data_info()
 data1, df_elbow = ml_script.cluster_info(data_base)
 data3, data5 = ml_script.line_info(data_base)
 
-engine = create_engine(f'postgresql://postgres:{p_key}@localhost:5432/test_final2') 
+engine = create_engine(f'postgresql://DATABASE_URL') 
 connection = engine.connect()
 
 data1.to_sql('clusterA',  if_exists='replace', index=True, con=connection, method='multi')
@@ -53,7 +53,7 @@ app = Flask(__name__)
 # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # db = SQLAlchemy(app)
 # Pet = create_classes(db)
-engine = create_engine(f'postgresql://postgres:{p_key}@localhost:5432/test_final2') 
+engine = create_engine(f'postgresql://DATABASE_URL') 
 Base = automap_base()
 # reflect the tables
 Base.prepare(engine, reflect=True)
@@ -73,7 +73,7 @@ session = Session(engine)
 
 @app.route("/")
 def home():
-    engine = create_engine(f'postgresql://postgres:{p_key}@localhost:5432/test_final2')
+    engine = create_engine(f'postgresql://DATABASE_URL') 
     # reflect an existing database into a new model
     
     return render_template("index.html")
@@ -94,7 +94,7 @@ def newdata():
     data1, df_elbow = ml_script.cluster_info(data_base)
     data3, data5 = ml_script.cluster_info(data_base)
 
-    engine = create_engine(f'postgresql://postgres:{p_key}@localhost:5432/test_final2') 
+    engine = create_engine(f'postgresql://DATABASE_URL') 
     connection = engine.connect()
     
     data1.to_sql('clusterA',  if_exists='replace', index=True, con=connection, method='multi')
