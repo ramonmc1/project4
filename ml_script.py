@@ -1,5 +1,5 @@
 #Import dependencies into juputer notebook
-# import numpy as np
+import numpy as np
 import pandas as pd
 # import seaborn as sb
 
@@ -31,7 +31,7 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error , r2_score
 
 
 # import scipy.stats as st
-from scipy.stats import linregress
+# from scipy.stats import linregress
 
 def data_info():
 
@@ -183,15 +183,32 @@ def line_info(df_merge):
     mse = mean_squared_error(y_test, predicted)
     r2 = r2_score(y_test, predicted)
 
-    reg.score(x_test, y_test)
+
 
     x_la = X["livingArea"]
-    (la_slope, la_int, la_r, la_p, la_std_err) = linregress(x_la, y)
-    fit_la = la_slope*x_la + la_int
+    # (la_slope, la_int, la_r, la_p, la_std_err) = linregress(x_la, y)
+    # fit_la = la_slope*x_la + la_int
+
+    xl = np.array(x_la).reshape((-1,1))
+    yl = np.array(y)
+    regl = LinearRegression().fit(xl, yl)
+    m = regl.coef_[0]
+    la_int = regl.intercept_
+    fit_la = m*x_la + la_int
+
+
 
     x_yb = X["bathrooms"]
-    (yb_slope, yb_int, yb_r, yb_p, yb_std_err) = linregress(x_yb, y)
-    fit_yb = yb_slope*x_yb + yb_int
+    # (yb_slope, yb_int, yb_r, yb_p, yb_std_err) = linregress(x_yb, y)
+    # fit_yb = yb_slope*x_yb + yb_int
+    xb = np.array(x_yb).reshape((-1,1))
+    yb = np.array(y)
+    regb = LinearRegression().fit(xb, yb)
+    m = regb.coef_[0]
+    yb_int = regb.intercept_
+    fit_yb = m*x_yb + yb_int
+
+
 
     data = {"livingArea": x_la, "bathrooms": x_yb, "price": y, "pred_la_price":fit_la, "pred_bath_price":fit_yb}
 

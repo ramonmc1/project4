@@ -24,7 +24,7 @@ app = Flask(__name__)
 #################################################
 
 
-# DATABASE_URL = os.environ[f'postgresql://postgres:{p_key}@localhost:5432/housing2'] 
+# DATABASE_URL = os.environ[f'postgresql://postgres:{p_key}@localhost:5432/housing3'] 
 
 # connection = psycopg2.connect(DATABASE_URL, sslmode='require')
 
@@ -69,7 +69,8 @@ Data_elb= Base.classes.elbow
 Data_lin=Base.classes.line
 Data_linreg=Base.classes.linreg
 
-session = Session(engine)
+# connection.close()
+# session = Session(engine)
 
 
 #################################################
@@ -114,7 +115,7 @@ def linear():
 #     data5.to_sql('linreg', if_exists='replace', index=True, con=connection, method='multi')
 #     connection.execute('ALTER TABLE "linreg" ADD PRIMARY KEY ("index");')
     
-#     connection.close()
+    
     
 #     return home()
 
