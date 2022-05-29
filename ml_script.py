@@ -1,7 +1,7 @@
 #Import dependencies into juputer notebook
 import numpy as np
 import pandas as pd
-import seaborn as sb
+# import seaborn as sb
 
 from sklearn.linear_model import LinearRegression
 from sklearn.decomposition import PCA
@@ -14,23 +14,23 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import mean_squared_error, mean_absolute_error , r2_score
 
 # import pickle
-# from flask import Flask, render_template, redirect, jsonify
-import json
-# from bson import json_util
-# import plotly.express as px
+# # from flask import Flask, render_template, redirect, jsonify
+# import json
+# # from bson import json_util
+# # import plotly.express as px
 
-#from models import create_classes
-import sqlalchemy
-from sqlalchemy.ext.automap import automap_base
-from sqlalchemy.orm import Session, sessionmaker, scoped_session
-from sqlalchemy import create_engine, inspect, func
-from config import p_key
-import os
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
+# #from models import create_classes
+# import sqlalchemy
+# from sqlalchemy.ext.automap import automap_base
+# from sqlalchemy.orm import Session, sessionmaker, scoped_session
+# from sqlalchemy import create_engine, inspect, func
+# from config import p_key
+# import os
+# from flask_sqlalchemy import SQLAlchemy
+# from flask_migrate import Migrate
 
 
-import scipy.stats as st
+# import scipy.stats as st
 from scipy.stats import linregress
 
 def data_info():
