@@ -1,13 +1,13 @@
 from flask import Flask, render_template, jsonify
-import numpy as np
+# import numpy as np
 import pandas as pd
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
 from config import p_key
-from flask_sqlalchemy import SQLAlchemy
-import os
+# from flask_sqlalchemy import SQLAlchemy
+# import os
 import ml_script
 
 #################################################
